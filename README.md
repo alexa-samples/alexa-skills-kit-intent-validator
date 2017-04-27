@@ -10,6 +10,10 @@ To use, simply take the code and deploy as a lambda function (in US East - Virgi
 
 There are two ways to utilize – issuing a launch request (ie “open”) will have the skill will remain in dialog mode – one can continuously tell it different utterances until you say “exit”.  OneShot is also supported – ie “Ask SkillName to do this utterance” and the Alexa session ends afterwards.
 
+## Dialog Management
+
+Currently, this version does not support the new dialog directives launched April 18.  These directives will be incorporated soon.
+
 ## Language Support
 
 English and German languages are both supported.  The function inspects the locale on the request object and appropriately updates the wording.
