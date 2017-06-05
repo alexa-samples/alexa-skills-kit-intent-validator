@@ -22,6 +22,9 @@ Currently supports English and German. (en-US, de-DE).
 // Use the new Alexa SDK
 const Alexa = require('alexa-sdk');
 
+// UPDATEME: Does your skill use Dialog Directives?  If so, update this to true.
+const DIALOG_DIRECTIVE_SUPPORT = false;
+
 // Series of strings for language tokenization
 const LANGUAGE_STRINGS = {
     'en': {
@@ -74,14 +77,20 @@ const handlers = {
         // this.emit('Reflect', this.event.request);
         let request = this.event.request;
         let intentInfo = parseIntentsAndSlotsFromEvent(request);
-        this.attributes['intentOutput'] = intentInfo.cardInfo;
-
-        // Determine if we are going to end the session or keep it in dialog mode.  When used in dialog mode we "ask" 
-        // as we are expecting another question to come through.  When used in OneShot mode we "tell" and end the session.
-        if (this.attributes['dialogSession']) {
-            this.emit(':askWithCard', intentInfo.response, LANGUAGE.still_listening, LANGUAGE.card_title, intentInfo.cardInfo);
+        
+        // If dialog directive support is enabled AND it exists and it is not in "completed" status, delegate back to the interaction model
+        if (DIALOG_DIRECTIVE_SUPPORT && request.dialogState && request.dialogState !== 'COMPLETED') {
+            this.emit(':delegate');
         } else {
-            this.emit(':tellWithCard', intentInfo.response, LANGUAGE.card_title, intentInfo.cardInfo);
+            this.attributes['intentOutput'] = intentInfo.cardInfo;
+
+            // Determine if we are going to end the session or keep it in dialog mode.  When used in dialog mode we "ask" 
+            // as we are expecting another question to come through.  When used in OneShot mode we "tell" and end the session.
+            if (this.attributes['dialogSession']) {
+                this.emit(':askWithCard', intentInfo.response, LANGUAGE.still_listening, LANGUAGE.card_title, intentInfo.cardInfo);
+            } else {
+                this.emit(':tellWithCard', intentInfo.response, LANGUAGE.card_title, intentInfo.cardInfo);
+            }
         }
     }
 
