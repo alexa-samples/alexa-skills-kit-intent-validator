@@ -27,7 +27,7 @@ const DIALOG_DIRECTIVE_SUPPORT = false;
 
 // Series of strings for language tokenization
 const LANGUAGE_STRINGS = {
-    'en': {
+    'en-US': {
         'launchRequestResponse': 'Launch Request for dialog mode, the session will remain open until you say, exit',
         'exit': 'Goodbye.',
         'received_with': ' received with ',
@@ -37,7 +37,37 @@ const LANGUAGE_STRINGS = {
         'received_slots_are': 'Received slots are ',
         'card_title': 'Reflected Intent'
     },
-    'de': {
+    'en-GB': {
+        'launchRequestResponse': 'Launch Request for dialog mode, the session will remain open until you say, exit',
+        'exit': 'Goodbye.',
+        'received_with': ' received with ',
+        'slot': ' slot. ',
+        'slots': ' slots. ',
+        'still_listening': "I'm still listening,  Please try another intent or say, stop",
+        'received_slots_are': 'Received slots are ',
+        'card_title': 'Reflected Intent'
+    },
+    'en-CA': {
+        'launchRequestResponse': 'Launch Request for dialog mode, the session will remain open until you say, exit',
+        'exit': 'Goodbye.',
+        'received_with': ' received with ',
+        'slot': ' slot. ',
+        'slots': ' slots. ',
+        'still_listening': "I'm still listening,  Please try another intent or say, stop",
+        'received_slots_are': 'Received slots are ',
+        'card_title': 'Reflected Intent'
+    },
+    'en-IN': {
+        'launchRequestResponse': 'Launch Request for dialog mode, the session will remain open until you say, exit',
+        'exit': 'Goodbye.',
+        'received_with': ' received with ',
+        'slot': ' slot. ',
+        'slots': ' slots. ',
+        'still_listening': "I'm still listening,  Please try another intent or say, stop",
+        'received_slots_are': 'Received slots are ',
+        'card_title': 'Reflected Intent'
+    },
+    'de-DE': {
         'launchRequestResponse': 'Launch Request. Gib den nächsten Befehl oder sage Abbruch',
         'exit': 'Auf Wiedersehen.',
         'received_with': ' empfangen mit ',
@@ -46,17 +76,25 @@ const LANGUAGE_STRINGS = {
         'still_listening': "Ich lausche noch immer. Bitte gebe einen neuen Befehl oder sage Stop.",
         'received_slots_are': 'Empfangene Slots sind ',
         'card_title': 'Reflektierte Absicht'
+    },
+    'fr-FR': {
+        'launchRequestResponse': "On passe en mode dialogue, la session restera ouverte jusqu'à ce que vous disiez, stop",
+        'exit': 'Au revoir.',
+        'received_with': ' reçu avec ',
+        'slot': ' slotte. ',
+        'slots': ' slottes. ',
+        'still_listening': "J'écoute encore,  Veuillez réessayer ou dites, arrête",
+        'received_slots_are': 'Les slottes reçus sont ',
+        'card_title': 'Intent '
     }
 }
 
-//Set default language to English unless overridden by the skill request.
-let LANGUAGE = LANGUAGE_STRINGS.en;
-
-//The various handlers for interpreting the interaction model from the skill
+// The various handlers for interpreting the interaction model from the skill
 const handlers = {
 
     // Launch request - "open skillName" - keep the session open until the user requests to exit
     'LaunchRequest': function () {
+        let LANGUAGE = LANGUAGE_STRINGS[this.event.request.locale] ? LANGUAGE_STRINGS[this.event.request.locale] : LANGUAGE_STRINGS['en-US'];
         this.attributes['dialogSession'] = true;
         this.emit(':ask', LANGUAGE.launchRequestResponse, LANGUAGE.launchRequestResponse);
     },
@@ -65,6 +103,7 @@ const handlers = {
         this.emit('AMAZON.StopIntent');
     },
     'AMAZON.StopIntent': function () {
+        let LANGUAGE = LANGUAGE_STRINGS[this.event.request.locale] ? LANGUAGE_STRINGS[this.event.request.locale] : LANGUAGE_STRINGS['en-US'];
         this.emit(':tell', LANGUAGE.exit);
     },
     'AMAZON.ExitIntent': function () {
@@ -74,8 +113,9 @@ const handlers = {
     // The main handler - here we simply take the inbound Alexa request, parse out the intent and slots, then return back 
     // to the user, either as a dialog
     'Unhandled': function () {
-        // this.emit('Reflect', this.event.request);
+
         let request = this.event.request;
+        
         let intentInfo = parseIntentsAndSlotsFromEvent(request);
         
         // If dialog directive support is enabled AND it exists and it is not in "completed" status, delegate back to the interaction model
@@ -84,6 +124,8 @@ const handlers = {
         } else {
             this.attributes['intentOutput'] = intentInfo.cardInfo;
 
+            let LANGUAGE = LANGUAGE_STRINGS[request.locale] ? LANGUAGE_STRINGS[request.locale] : LANGUAGE_STRINGS['en-US'];
+            
             // Determine if we are going to end the session or keep it in dialog mode.  When used in dialog mode we "ask" 
             // as we are expecting another question to come through.  When used in OneShot mode we "tell" and end the session.
             if (this.attributes['dialogSession']) {
@@ -104,16 +146,6 @@ function parseIntentsAndSlotsFromEvent(request) {
     //Cleanse the request intent name
     let intentName = request.intent.name.replace(/[^a-zA-Z0-9]/g, " ");
 
-    let LANGUAGE = {};
-    //use German language if the locale is Germany
-    switch(request.locale) {
-        case 'de-DE' :
-            LANGUAGE = LANGUAGE_STRINGS.de;
-            break;
-        default: 
-            LANGUAGE = LANGUAGE_STRINGS.en;
-    }
-
     let numSlots = 0;
     let slots = request.intent.slots;
 
@@ -129,6 +161,8 @@ function parseIntentsAndSlotsFromEvent(request) {
         }
     }
 
+    let LANGUAGE = LANGUAGE_STRINGS[request.locale] ? LANGUAGE_STRINGS[request.locale] : LANGUAGE_STRINGS['en-US'];
+    
     let responseText = `${intentName} ${LANGUAGE.received_with} ${numSlots} ${LANGUAGE.slots}`;
     let cardInfo = `${intentName} ${LANGUAGE.received_with} ${numSlots} ${LANGUAGE.slots}`;
 
