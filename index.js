@@ -78,7 +78,7 @@ const LANGUAGE_STRINGS = {
         'card_title': 'Reflektierte Absicht'
     },
     'fr-FR': {
-        'launchRequestResponse': "On passe en mode dialogue, la session restera ouverte jusqu'à ce que vous disiez, stop",
+        'launchRequestResponse': "On passe en mode dialogue, la session restera ouverte jusqu'à ce que vous disiez, arrête",
         'exit': 'Au revoir.',
         'received_with': ' reçu avec ',
         'slot': ' slotte. ',
