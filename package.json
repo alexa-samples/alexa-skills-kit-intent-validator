@@ -7,6 +7,14 @@
     {
       "name": "Eric Fahsl",
       "email": "erifahsl@amazon.com"
+    },
+    {
+      "name": "Mario Lopez Ramos",
+      "email": "mariolr@amazon.com"
+    },
+    {
+      "name": "Sebastien Stormacq",
+      "email": "stormacq@amazon.com"
     }
   ],
   "dependencies": {
