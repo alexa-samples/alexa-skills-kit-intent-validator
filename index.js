@@ -1,7 +1,7 @@
 /* -*- coding: utf-8 -*- */
 
 /*
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2016-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 Licensed under the Amazon Software License (the "License"). You may not use this file except in 
 compliance with the License. A copy of the License is located at
     http://aws.amazon.com/asl/
@@ -14,7 +14,7 @@ language governing permissions and limitations under the License.
 The Alexa ASK Intent Validator is designed for medium-complex Intent Schema validation. Need to quickly 
 try many different combinations of your utterances ON your devices, this is the tool for you.  
 
-Currently supports English and German. (en-US, de-DE).
+Currently supports English, German, French, Italian and Spanish.
  **/
 
 'use strict';
@@ -88,7 +88,7 @@ const LANGUAGE_STRINGS = {
         'card_title': 'Intent '
     },
     'es-ES': {
-        'launchRequestResponse': "Qué quieres que repita?",
+        'launchRequestResponse': "Petición de Lanzamiento. Pasando a modo diálogo. La sesión permanecerá abierta hasta que digas para.",
         'exit': 'Adiós.',
         'received_with': ' recibido con ',
         'slot': ' parametro. ',
@@ -98,7 +98,7 @@ const LANGUAGE_STRINGS = {
         'card_title': 'Intent '
     },  
     'it-IT': {
-        'launchRequestResponse': "Cosa vuoi che ripeta?",
+        'launchRequestResponse': "Richiesta di lancio. Passando alla modalità di dialogo, la sessione rimarrà aperta finché non dirai, esci",
         'exit': 'Addio.',
         'received_with': ' ricevuto con ',
         'slot': ' parametro. ',

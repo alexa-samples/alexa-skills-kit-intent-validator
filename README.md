@@ -28,7 +28,7 @@ By setting the above flag to "true", the code will inspect the inbound request f
 
 ## Language Support
 
-English and German languages are both supported.  The function inspects the locale on the request object and appropriately updates the wording.
+English, German, French, Italian and Spanish languages are supported.  The function inspects the locale on the request object and appropriately updates the wording.
 
 # Updates
 

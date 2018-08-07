@@ -15,6 +15,10 @@
     {
       "name": "Sebastien Stormacq",
       "email": "stormacq@amazon.com"
+    },
+    {
+      "name": "German Viscuso",
+      "email": "viscusog@amazon.com"
     }
   ],
   "dependencies": {
