@@ -1,6 +1,6 @@
 {
   "name": "alexa-skills-kit-intent-validator",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Provides a stub Lambda function for testing Alexa interaction models from your Alexa-enabled device",
   "main": "index.js",
   "contributors": [
@@ -22,7 +22,9 @@
     }
   ],
   "dependencies": {
-    "alexa-sdk": "1.0.9"
+    "ask-sdk": "^2.0.7",
+    "i18next": "^11.6.0",
+    "i18next-sprintf-postprocessor": "^0.2.2"
   },
   "devDependencies": {},
   "scripts": {
