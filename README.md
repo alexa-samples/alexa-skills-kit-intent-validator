@@ -2,6 +2,9 @@
 
 The Alexa ASK Intent Validator is designed to help validate your Alexa interaction models.  Need to quickly try many different combinations of your utterances ON your devices, this is the tool for you.  While intended for medium-complex models, it can work on ANY interaction models.  
 
+# ** This repository has been archived **
+This repository is still available as a point-in-time reference, but no further updates or support will be prioritized.
+
 ## How it Works
 
 The intent validator is a lambda function that simply interprets the received event request from Alexa and states the key pieces of information (intent and slots) back to the user and displays in the card.
